@@ -5,16 +5,10 @@
  */
 'use strict';
 
-import ReactDOM from 'react-dom';
-import ReactDOMUnstableNativeDependencies from 'react-dom/unstable-native-dependencies';
+import EventPluginRegistry from 'react-dom/lib/EventPluginRegistry';
+import ResponderEventPlugin from 'react-dom/lib/ResponderEventPlugin';
+import ResponderTouchHistoryStore from 'react-dom/lib/ResponderTouchHistoryStore';
 
-const {
-  EventPluginHub,
-} = ReactDOM.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-const {
-  ResponderEventPlugin,
-  ResponderTouchHistoryStore,
-} = ReactDOMUnstableNativeDependencies;
 
 let eventTypes = ResponderEventPlugin.eventTypes;
 eventTypes.startShouldSetResponder.dependencies = [
@@ -99,6 +93,6 @@ ResponderTouchHistoryStore.recordTouchTrack = (topLevelType, nativeEvent) => {
   });
 };
 
-EventPluginHub.injection.injectEventPluginsByName({
+EventPluginRegistry.injectEventPluginsByName({
   ResponderEventPlugin
 });
