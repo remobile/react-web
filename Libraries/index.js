@@ -77,6 +77,7 @@ export PanResponder from 'ReactPanResponder';
 export PixelRatio from 'ReactPixelRatio';
 export StyleSheet from 'ReactStyleSheet';
 export AppState from 'ReactAppState';
+export DeviceEventEmitter from 'ReactDeviceEventEmitter';
 
 // Plugins
 export findNodeHandle from 'ReactfindNodeHandle';
