@@ -108,6 +108,7 @@ class ScrollView extends Component {
   render() {
     let {
       style,
+      refreshControl,
       ...otherProps
     } = this.props;
 
@@ -167,7 +168,7 @@ class ScrollView extends Component {
       alwaysBounceHorizontal,
       alwaysBounceVertical,
       style: ([
-        styles.base,
+        refreshControl ? null : styles.base,
         (this.props.horizontal && this.props.scrollEnabled) ? styles.horizontal : null,
         this.props.style,
       ]: ?Array<any>),
@@ -191,6 +192,16 @@ class ScrollView extends Component {
       onResponderRelease: this.scrollResponderHandleResponderRelease,
       onResponderReject: this.scrollResponderHandleResponderReject,
     };
+
+    if (refreshControl) {
+      return React.cloneElement(
+        refreshControl,
+        { onScroll: handleScroll },
+        <View {...props} ref={this._captureRef}>
+          {contentContainer}
+        </View>
+      );
+    }
 
     return (
       <View {...props} ref={this._captureRef}>
