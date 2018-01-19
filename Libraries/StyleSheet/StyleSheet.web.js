@@ -12,6 +12,11 @@ import setDefaultStyle from './setDefaultStyle.web';
 // Make React support array of style object like React Native
 import extendCreateElement from './extendCreateElement';
 import flattenStyle from './flattenStyle.web';
+import PixelRatio from 'ReactPixelRatio';
+import Dimensions from 'ReactDimensions';
+import _ from 'lodash';
+
+const WIDTH_SCALE = Dimensions.get('window').width/375;
 
 var inited = false;
 
@@ -32,7 +37,25 @@ var StyleSheet = {
   absoluteFillObject,
   hairlineWidth: 1,
   create: function(styles) {
-    return styles;
+    const result = {};
+    for (const key in styles) {
+      result[key] = styles[key] && _.mapValues(styles[key], (value, key)=>{
+        if (typeof value !== 'number') {
+          return value;
+        }
+        if (key === 'flex') {
+          return value;
+        }
+        if (key === 'lineHeight' || key=== 'fontSize') {
+          return Math.round(value*WIDTH_SCALE);
+        }
+        if (value > 2 || value < -2 ) {
+          return value*WIDTH_SCALE;
+        }
+        return value;
+      });
+    }
+    return result;
   },
   extendCreateElement: function(React, nativeComponents) {
     extendCreateElement(React, function(style) {
