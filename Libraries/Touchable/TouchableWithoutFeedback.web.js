@@ -80,7 +80,7 @@ class TouchableWithoutFeedback extends Component {
     if (touchBank) {
       var offset = Math.sqrt(Math.pow(touchBank.startPageX - touchBank.currentPageX, 2)
           + Math.pow(touchBank.startPageY - touchBank.currentPageY, 2));
-      var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000;
+      var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000 || 0;
       if (velocity < 100) this.props.onPress && this.props.onPress(e);
     } else {
       this.props.onPress && this.props.onPress(e);
