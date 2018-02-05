@@ -10,7 +10,6 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
-import Portal from 'ReactPortal';
 
 class AppContainer extends Component {
 
@@ -23,7 +22,6 @@ class AppContainer extends Component {
         <RootComponent
           {...this.props.initialProps}
           rootTag={this.props.rootTag}/>
-        <Portal />
       </View>;
 
     return appView;
