@@ -10,13 +10,13 @@
 'use strict';
 
 import Dimensions from 'ReactDimensions';
-import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIOS';
+import NavigatorNavigationBarStyles from 'ReactNavigatorNavigationBarStyles';
 import buildStyleInterpolator from './polyfills/buildStyleInterpolator';
 import merge from './polyfills/merge';
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
-var STATUS_BAR_HEIGHT = NavigatorNavigationBarStylesIOS.General.StatusBarHeight;
-var NAV_BAR_HEIGHT = NavigatorNavigationBarStylesIOS.General.NavBarHeight;
+var STATUS_BAR_HEIGHT = NavigatorNavigationBarStyles.General.StatusBarHeight;
+var NAV_BAR_HEIGHT = NavigatorNavigationBarStyles.General.NavBarHeight;
 
 var SPACING = 4;
 var ICON_WIDTH = 40;

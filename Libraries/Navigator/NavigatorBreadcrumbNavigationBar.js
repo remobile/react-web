@@ -12,8 +12,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NavigatorBreadcrumbNavigationBarStyles from 'ReactNavigatorBreadcrumbNavigationBarStyles';
-import NavigatorNavigationBarStylesAndroid from 'ReactNavigatorNavigationBarStylesAndroid';
-import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIOS';
+import NavigatorNavigationBarStyles from 'ReactNavigatorNavigationBarStyles';
 import Platform from 'ReactPlatform';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
@@ -22,8 +21,6 @@ import invariant from 'fbjs/lib/invariant';
 import autobind from 'autobind-decorator';
 
 var Interpolators = NavigatorBreadcrumbNavigationBarStyles.Interpolators;
-var NavigatorNavigationBarStyles = Platform.OS === 'android' ?
-  NavigatorNavigationBarStylesAndroid : NavigatorNavigationBarStylesIOS;
 
 /**
  * Reusable props objects.

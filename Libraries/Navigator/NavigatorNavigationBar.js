@@ -11,8 +11,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NavigatorNavigationBarStylesAndroid from 'ReactNavigatorNavigationBarStylesAndroid';
-import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIOS';
+import NavigatorNavigationBarStyles from 'ReactNavigatorNavigationBarStyles';
 import Platform from 'ReactStyleSheet';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
@@ -20,9 +19,6 @@ import { Map } from 'immutable';
 import autobind from 'autobind-decorator';
 
 var COMPONENT_NAMES = ['Title', 'LeftButton', 'RightButton'];
-
-var NavigatorNavigationBarStyles = Platform.OS === 'android' ?
-  NavigatorNavigationBarStylesAndroid : NavigatorNavigationBarStylesIOS;
 
 var navStatePresentedIndex = function(navState) {
   if (navState.presentedIndex !== undefined) {
@@ -62,11 +58,7 @@ class NavigatorNavigationBar extends Component {
     style: View.propTypes.style,
   }
 
-  static statics = {
-    Styles: NavigatorNavigationBarStyles,
-    StylesAndroid: NavigatorNavigationBarStylesAndroid,
-    StylesIOS: NavigatorNavigationBarStylesIOS,
-  }
+  static Styles = NavigatorNavigationBarStyles;
 
   static defaultProps = {
     navigationStyles: NavigatorNavigationBarStyles,

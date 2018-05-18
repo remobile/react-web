@@ -5,7 +5,7 @@
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
  *
- * @providesModule ReactNavigatorNavigationBarStylesIOS
+ * @providesModule ReactNavigatorNavigationBarStyles
  */
 'use strict';
 
