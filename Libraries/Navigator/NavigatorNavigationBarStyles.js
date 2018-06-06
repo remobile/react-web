@@ -15,7 +15,7 @@ import merge from './polyfills/merge';
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var NAV_BAR_HEIGHT = 44;
-var STATUS_BAR_HEIGHT = 20;
+var STATUS_BAR_HEIGHT = 0;
 var NAV_HEIGHT = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 
 var BASE_STYLES = {
