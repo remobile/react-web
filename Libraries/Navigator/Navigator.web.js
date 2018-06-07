@@ -29,6 +29,10 @@ import clamp from './polyfills/clamp';
 import flattenStyle from 'ReactFlattenStyle';
 import invariant from 'fbjs/lib/invariant';
 import rebound from 'rebound';
+import createHistory from 'history/lib/createHashHistory';
+
+let history = createHistory();
+let _unlisten;
 
 // TODO: this is not ideal because there is no guarantee that the navigator
 // is full screen, hwoever we don't have a good way to measure the actual
@@ -310,11 +314,26 @@ class Navigator extends Component {
     });
     this._interactionHandle = null;
     this._emitWillFocus(this.state.routeStack[this.state.presentedIndex]);
+    this.hashChanged = false;
   }
 
   componentDidMount() {
     this._handleSpringUpdate();
     this._emitDidFocus(this.state.routeStack[this.state.presentedIndex]);
+
+    // NOTE: Listen for changes to the current location. The
+    // listener is called once immediately.
+    _unlisten = history.listen(function(location) {
+      let destIndex = 0;
+      if (location.pathname.indexOf('/scene_') != -1) {
+        destIndex = parseInt(location.pathname.replace('/scene_', ''));
+      }
+      if (destIndex < this.state.routeStack.length && destIndex != this.state.routeStack.length) {
+        this.hashChanged = true;
+        this._jumpN(destIndex - this.state.presentedIndex);
+        this.hashChanged = false;
+      }
+    }.bind(this));
   }
 
   componentWillUnmount() {
@@ -322,6 +341,10 @@ class Navigator extends Component {
       this._navigationContext.dispose();
       this._navigationContext = null;
     }
+
+    // When you're finished, stop the listener.
+    _unlisten();
+
   }
 
   /**
@@ -845,6 +868,14 @@ class Navigator extends Component {
     this._enableScene(destIndex);
     this._emitWillFocus(this.state.routeStack[destIndex]);
     this._transitionTo(destIndex);
+    if (!this.hashChanged) {
+      if (n > 0) {
+        history.pushState({ index: destIndex }, '/scene_' + getRouteID(this.state.routeStack[destIndex]));
+      } else {
+        history.go(n);
+      }
+      return;
+    }
     if (n < 0) {
       // __uid should be non-negative
       __uid = Math.max(__uid + n, 0);
@@ -883,6 +914,7 @@ class Navigator extends Component {
       routeStack: nextStack,
       sceneConfigStack: nextAnimationConfigStack,
     }, () => {
+      history.pushState({ index: destIndex }, '/scene_' + getRouteID(route));
       this._enableScene(destIndex);
       this._transitionTo(destIndex);
     });
@@ -904,6 +936,7 @@ class Navigator extends Component {
       null, // default velocity
       null, // no spring jumping
       () => {
+        history.go(-n);
         this._cleanScenesPastIndex(popIndex);
       }
     );
