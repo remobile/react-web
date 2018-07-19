@@ -16,8 +16,6 @@ import PixelRatio from 'ReactPixelRatio';
 import Dimensions from 'ReactDimensions';
 import _ from 'lodash';
 
-const WIDTH_SCALE = Dimensions.get('window').width/375;
-
 var inited = false;
 
 const ROOT_CLASS_NAME = 'react-root';
@@ -37,9 +35,10 @@ var StyleSheet = {
   absoluteFillObject,
   hairlineWidth: 1,
   create: function(styles) {
+    const scale = Dimensions.get('window').width/375;
     const result = {};
     for (const key in styles) {
-      result[key] = styles[key] && _.mapValues(styles[key], (value, key)=>{
+      result[key] = typeof styles[key] !== 'object' ? styles[key] : _.mapValues(styles[key], (value, key)=>{
         if (typeof value !== 'number') {
           return value;
         }
@@ -47,10 +46,10 @@ var StyleSheet = {
           return value;
         }
         if (key === 'lineHeight' || key=== 'fontSize') {
-          return Math.round(value*WIDTH_SCALE);
+          return Math.round(value*scale);
         }
         if (value > 2 || value < -2 ) {
-          return value*WIDTH_SCALE;
+          return value*scale;
         }
         return value;
       });

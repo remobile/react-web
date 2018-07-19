@@ -41,6 +41,7 @@ class Picker extends Component {
         value={this.props.selectedValue}
         style={{
           margin: 10,
+          cursor: 'pointer',
           color: 'inherit',
           font: 'inherit',
           ...this.props.style}}

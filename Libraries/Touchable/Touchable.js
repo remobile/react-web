@@ -351,10 +351,6 @@ var TouchableMixin = {
     // (as in setTimeout etc), we need to call e.persist() on the
     // event to make sure it doesn't get reused in the event object pool.
     e.persist();
-    // filter mouse event
-    if (/mouse/.test(e.type)) {
-      return;
-    }
 
     this.pressOutDelayTimeout && clearTimeout(this.pressOutDelayTimeout);
     this.pressOutDelayTimeout = null;
@@ -390,10 +386,6 @@ var TouchableMixin = {
    * Place as callback for a DOM element's `onResponderRelease` event.
    */
   touchableHandleResponderRelease: function(e) {
-    // filter mouse event
-    if (/mouse/.test(e.type)) {
-      return;
-    }
     this._receiveSignal(Signals.RESPONDER_RELEASE, e);
   },
 
@@ -401,10 +393,6 @@ var TouchableMixin = {
    * Place as callback for a DOM element's `onResponderTerminate` event.
    */
   touchableHandleResponderTerminate: function(e) {
-    // filter mouse event
-    if (/mouse/.test(e.type)) {
-      return;
-    }
     this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
   },
 
@@ -412,10 +400,6 @@ var TouchableMixin = {
    * Place as callback for a DOM element's `onResponderMove` event.
    */
   touchableHandleResponderMove: function(e) {
-    // filter mouse event
-    if (/mouse/.test(e.type)) {
-      return;
-    }
     // Not enough time elapsed yet, wait for highlight -
     // this is just a perf optimization.
     if (this.state.touchable.touchState === States.RESPONDER_INACTIVE_PRESS_IN) {
