@@ -78,7 +78,7 @@ class Image extends Component {
       ...this.props,
       'aria-label': this.props.accessibilityLabel
     };
-    props.src = typeof props.source === 'string' ? props.source : props.source.uri;
+    props.src = typeof props.source === 'object' ? props.source.uri : props.source;
 
     // TODO: lazyload image when not in viewport
 
